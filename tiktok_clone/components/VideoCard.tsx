@@ -8,7 +8,6 @@ export default function VideoCard({ video }: { video: VideoType }) {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(video.likesCount);
 
-  // Xử lý tự động chạy/dừng video khi lướt qua bằng IntersectionObserver
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -17,11 +16,11 @@ export default function VideoCard({ video }: { video: VideoType }) {
             videoRef.current?.play().catch(() => {});
           } else {
             videoRef.current?.pause();
-            if (videoRef.current) videoRef.current.currentTime = 0; // Reset về giây đầu tiên
+            if (videoRef.current) videoRef.current.currentTime = 0; 
           }
         });
       },
-      { threshold: 0.6 } // Video chiếm 60% màn hình sẽ tự chạy
+      { threshold: 0.6 } 
     );
 
     if (videoRef.current) observer.observe(videoRef.current);
@@ -31,7 +30,6 @@ export default function VideoCard({ video }: { video: VideoType }) {
     };
   }, []);
 
-  // Xử lý khi nhấn nút Tim
   const handleLike = () => {
     if (liked) {
       setLiked(false);
@@ -44,17 +42,15 @@ export default function VideoCard({ video }: { video: VideoType }) {
 
   return (
     <div className="relative h-screen w-full snap-start bg-black flex justify-center items-center">
-      {/* Thành phần Video */}
       <video
         ref={videoRef}
         src={video.videoUrl}
         className="h-full w-full object-cover max-w-[450px]"
         loop
         playsInline
-        muted // Bắt buộc phải tắt tiếng để trình duyệt cho phép tự động phát
+        muted 
       />
 
-      {/* Các nút tương tác bên phải */}
       <div className="absolute right-4 bottom-24 flex flex-col items-center space-y-5 text-white z-10">
         <button onClick={handleLike} className="flex flex-col items-center group">
           <div className="bg-zinc-800 p-3 rounded-full transition group-hover:scale-105">
@@ -78,7 +74,6 @@ export default function VideoCard({ video }: { video: VideoType }) {
         </button>
       </div>
 
-      {/* Tên tác giả và mô tả ở góc dưới bên trái */}
       <div className="absolute left-4 bottom-24 right-16 text-white z-10 max-w-[360px] drop-shadow-md">
         <h3 className="font-bold text-base mb-1">@{video.authorName}</h3>
         <p className="text-sm text-zinc-200 line-clamp-2">{video.description}</p>
