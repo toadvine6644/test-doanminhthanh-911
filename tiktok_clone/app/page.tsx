@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import { mockVideos } from "@/data/mockData";
